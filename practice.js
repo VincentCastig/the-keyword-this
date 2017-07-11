@@ -2,18 +2,26 @@
   // 1) What is the purpose of the 'this keyword'?
 
       //Answer
+      //The purpose of "this" keyword is to refer to the object that called the function
 
   // 2) What are the four rules that govern what the 'this keyword' is bound to and describe each?
 
       //Answer
+      //Four rules of the "this" keyword
+      //when a function is contained in the global scobe, "this" keyword refers to the window
+      //when a function is preceded by a dot, "this" keyword refers to the object before that dot
+      //when a construct function is used this refers to the specific instance of the object that is created.
+
 
   // 3) What is the difference between call and apply?
 
       //Answer
+      //apply is the same as call except that apply expects the 2nd argument to be an array
 
   // 4) What does .bind do?
 
       //Answer
+      //With "bind", the keyword "this" in a function is bound to the object which bind directs it to
 
 
 //Next Problem
@@ -24,9 +32,15 @@
   //getUsername --> which is a function that returns the current object's username property. *Don't use 'user' instead use the 'this' keyword*
 
     //Code Here
-
+var user = {
+  username: "vince",
+  email: "vince@gmail.com",
+  getUsername: function(){
+    return this.username;
+  }
+}
 //Now, invoke the getUsername method and verify you got the username of the object and not anything else.
-
+user.getUsername()
 
 //Next Problem
 
@@ -34,15 +48,26 @@
 // Write a constructor function, including method definitions, which will make the following function invocations function properly.
 
   //Function Invocations Here
+  function Car(make, model, year){
+    this.make = make;
+    this.model = model;
+    this.year = year;
+    this.move = 0;
+    this.moveCar = function(){
+      return this.move += 10;
+    }
+  }
+
 
 var prius = new Car('Toyota', 'Prius', 2011);
 var mustang = new Car('Ford', 'Mustang', 2013);
 
 //Hint, you'll need to add a move property, with a starting value of zero, and write a moveCar function which will increment the move property by 10. The move property will be added to every object that is being returned from the Car function. You'll also need to use the 'this' keyword properly in order to make sure you're invoking moveCar on the right object (prius vs mustang).
 
+
 prius.moveCar(); //increments prius' move property by 10. Returns the new move property.
 mustang.moveCar(); //increments mustang' move property by 10. Returns the new move property.
-
+console.log(prius)
 
 
 //Continuation of previous problem
@@ -55,6 +80,7 @@ var getYear = function(){
 
 //Note(no tests)
   //Code Here
+//getYear.call(prius)
 
 
 //New Problem
@@ -69,16 +95,15 @@ var getMyUsername = function() {
  return this.username;
 };
 
-var userName = getMyUsername(); //Fix this
-
+var userName = getMyUsername.call(myUser);
 //Above you're given an object, and  a function. What will the getMyUsername function return?
 //Note(no tests)
   //Answer Here
+  //Undefined
 
 //In the example above, what is the 'this keyword' bound to when getMyUsername runs?
 
   //Answer Here
-
+//"this" is bound to the gloable variable "userName"
 
 //Fix the getMyUsername invocation (stored in the userName variable, at the bottom of the above code) so that userName will be equal to 'iliketurtles'.
-
